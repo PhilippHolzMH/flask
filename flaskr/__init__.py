@@ -1,20 +1,15 @@
 import json
 import os
-
 from flask import Flask, Blueprint
+from flaskr.list_and_count import list_and_count
 
 api_bp = Blueprint("api", __name__)
 
-@api_bp.route('/user/<user>')
-def user(user):
-    return json.dumps({"name": user})
-
+@api_bp.route('/bucket/<bucket>')
+def buckets(bucket): 
+    result = list_and_count(bucket)
+    return json.dumps(result,indent=4,sort_keys=True)
     
-@api_bp.route('/buckets')
-def buckets():
-    return json.dumps([{"name": "bucket1"}])
-
-
 
 def create_app(test_config=None):
     # create and configure the app
